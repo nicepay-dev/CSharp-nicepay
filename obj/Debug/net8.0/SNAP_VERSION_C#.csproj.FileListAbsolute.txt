@@ -1,0 +1,17 @@
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\SNAP_VERSION_C#.exe
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\SNAP_VERSION_C#.deps.json
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\SNAP_VERSION_C#.runtimeconfig.json
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\SNAP_VERSION_C#.dll
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\SNAP_VERSION_C#.pdb
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.csproj.AssemblyReference.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.AssemblyInfoInputs.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.AssemblyInfo.cs
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.csproj.CoreCompileInputs.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VER.5DF05F80.Up2Date
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.dll
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\refint\SNAP_VERSION_C#.dll
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.pdb
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\SNAP_VERSION_C#.genruntimeconfig.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Debug\net8.0\ref\SNAP_VERSION_C#.dll
