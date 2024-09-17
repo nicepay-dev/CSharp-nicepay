@@ -4,7 +4,8 @@ This is the Official C# API client/library for NICEPAY Payment API. More informa
 
 ## 1. Installation
 ### Using CLI 
-``dotnet new console -n newProject 
+```csharp
+  dotnet new console -n newProject 
   cd newProject
   dotnet run
 ```
