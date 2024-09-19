@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SNAP_VERSION_C#")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b6320dd24d192224a17905e7a07ae024d66853f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7264c5393af60456a7824beef6e36ea9ff3f76c9")]
 [assembly: System.Reflection.AssemblyProductAttribute("SNAP_VERSION_C#")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SNAP_VERSION_C#")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

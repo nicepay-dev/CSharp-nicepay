@@ -9,11 +9,11 @@ public class InquiryVATests
     [Test]
     public async Task InquiryVA_Test()
     {
-         TestingConstant testing = new TestingConstant();
-        string clientId = testing.ClientId;
-        string privateKey = testing.PrivateKey;
+        TestingConstant config = new TestingConstant();
+        string clientId = config.ClientId;
+        string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
-        string clientSecret = testing.ClientSecret;
+        string clientSecret = config.ClientSecret;
         string channelId = "123456";
         
         // Generate signature

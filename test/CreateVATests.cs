@@ -10,11 +10,11 @@ public class CreateVATests
     public async Task CreateVA_Test()
     {
 
-        TestingConstant testing = new TestingConstant();
-        string clientId = testing.ClientId;
-        string privateKey = testing.PrivateKey;
+        TestingConstant config = new TestingConstant();
+        string clientId = config.ClientId;
+        string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
-        string clientSecret = testing.ClientSecret;
+        string clientSecret = config.ClientSecret;
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
 
@@ -43,19 +43,16 @@ public class CreateVATests
             goodsNm: "Test",
             dbProcessUrl: "https://nicepay.co.id/"
         );
-        string va_num = string.Empty;
-        string amount = string.Empty;
-        string trxID = string.Empty;
-        string txidVa = string.Empty;
+       
         // Send POST request to create VA
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await vaService.SendPostRequestCreate(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);
 
         dynamic createVAResponse = JObject.Parse(createResponse);
-        va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
-        amount = createVAResponse.virtualAccountData["totalAmount"]["value"].ToString();
-        txidVa = createVAResponse.virtualAccountData["additionalInfo"]["tXidVA"].ToString();
-        trxID = createVAResponse.virtualAccountData["trxId"].ToString();
+        string va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
+        string amount = createVAResponse.virtualAccountData["totalAmount"]["value"].ToString();
+        string txidVa = createVAResponse.virtualAccountData["additionalInfo"]["tXidVA"].ToString();
+        string trxID = createVAResponse.virtualAccountData["trxId"].ToString();
 
         TestDataStore.VaNum = va_num;
         TestDataStore.TrxId = trxID;

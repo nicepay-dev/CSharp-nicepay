@@ -9,13 +9,13 @@ public class DeleteVATest
     [Test]
     public async Task DeleteVA_Test()
     {
-        TestingConstant testing = new TestingConstant();
-        string clientId = testing.ClientId;
-        string privateKey = testing.PrivateKey;
+        TestingConstant config = new TestingConstant();
+        string clientId = config.ClientId;
+        string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
-        string clientSecret = testing.ClientSecret;
+        string clientSecret = config.ClientSecret;
         string channelId = "123456";
-        string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
+        
 
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
