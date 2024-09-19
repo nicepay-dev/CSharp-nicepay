@@ -16,7 +16,7 @@ Get your Credentials from [Nicepay Dashboard](https://bo.nicepay.co.id/)
 Initialize Nicepay Config
 
 ```csharp
-  public CredentialConfig()
+  public TestingConstant()
     {
         ClientId = " YOUR_CLIENT_ID ";
         ClientSecret = " YOUR_CLIENT_SECRET ";
@@ -27,11 +27,10 @@ Initialize Nicepay Config
 You can inisiate the config
 
 ```csharp
-   CredentialConfig config = new CredentialConfig();
+ TestingConstant config = new TestingConstant();
  string clientId = config.ClientId;
- string clientSecret = config.ClientSecret;
  string privateKey = config.PrivateKey;
- string channelId = config.ChannelId;
+ string clientSecret = config.ClientSecret;
 ```
 
 ### 2.2 Request for Access-Token
@@ -95,11 +94,24 @@ string createRequestBody = requestBodyGenerator.GenerateCreateVARequest(
             goodsNm: "Test",
             dbProcessUrl: "https://nicepay.co.id/"
         );
-
-        string createResponse = await vaService.SendPostRequestCreate(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId + "02");
+        string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
+        string createResponse = await vaService.SendPostRequestCreate(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);
 dynamic createVAResponse = JObject.Parse(createResponse);
 String va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
 ```
+For testing VA with NUnit
+
+Install package
+```csharp
+dotnet add package xunit
+dotnet add package xunit.runner.visualstudio
+```
+run the test 
+example for CreateVA
+```csharp
+dotnet test --filter FullyQualifiedName~CreateVATests.CreateVA_Test --logger "console;verbosity=detailed"
+```
+
 
 ### 2.4 Verify signature notif 
 
@@ -111,6 +123,11 @@ string publicKeyString = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApizrKJl/1L
 
 string signatureString = "VoxMPjbcV9pro4YyHGQgoRj4rDVJgYk2Ecxn+95B90w47Wnabtco35BfhGpR7a5RukUNnAdeOEBNczSFk4B9uYyu3jc+ceX+Dvz5OYSgSnw5CiMHtGiVnTAqCM/yHZ2MRpIEqekBc4BWMLVtexSWp0YEJjLyo9dZPrSkSbyLVuD7jkUbvmEpVdvK0uK15xb8jueCcDA6LYVXHkq/OMggS1/5mrLNriBhCGLuR7M7hBUJbhpOXSJJEy7XyfItTBA+3MRC2FLcvUpMDrn/wz1uH1+b9A6FP7mG0bRSBOm2BTLyf+xJR5+cdd88RhF70tNQdQxhqr4okVo3IFqlCz2FFg==";
 bool isSignatureValid = SignatureGeneratorUtils.VerifySHA256RSA(stringToSignVer, publicKeyString, signatureString);
+```
+run the test 
+example for Verify Signature
+```csharp
+dotnet test --filter FullyQualifiedName~VerifySignature.Verif_Sign --logger "console;verbosity=detailed"
 ```
 
 ## 3. Other Samples
