@@ -7,13 +7,13 @@ namespace SignatureGenerator
     public class AccessTokenRequester
     {
         private static readonly HttpClient client = new HttpClient();
-
-        public async Task<string> GetAccessTokenAsync(string clientId, string signature, string timestamp)
+    
+        public async Task<string> GetAccessTokenAsync(string clientId, string signature, string timestamp, bool isProduction)
         {
             // URL API
-
+            string _baseUrl = isProduction ? ApiEndpoints.GetProductionBaseUrl() : ApiEndpoints.GetSandboxBaseUrl();
             ApiEndpoints apiEndpoints = new ApiEndpoints();
-            string url = apiEndpoints.AccessToken;
+            string url = _baseUrl + apiEndpoints.AccessToken;
 
             // Membentuk header request
             client.DefaultRequestHeaders.Clear();

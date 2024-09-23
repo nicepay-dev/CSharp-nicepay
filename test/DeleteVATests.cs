@@ -15,6 +15,7 @@ public class DeleteVATest
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
         string clientSecret = config.ClientSecret;
         string channelId = "123456";
+        bool isProduction = false;
         
 
         // Generate signature
@@ -24,13 +25,13 @@ public class DeleteVATest
 
         // Get access token
         var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
+        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
         RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
         
         // Add the value from regist

@@ -16,6 +16,7 @@ public class VATesting
         string clientSecret = "1af9014925cab04606b2e77a7536cb0d5c51353924a966e503953e010234108a";
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
+        bool isProduction = false;
 
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
@@ -24,13 +25,13 @@ public class VATesting
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
+        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
         RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
         string createRequestBody = requestBodyGenerator.GenerateCreateVARequest(
             customerNo: "",
@@ -76,6 +77,7 @@ public class VATesting
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
         string clientSecret = "1af9014925cab04606b2e77a7536cb0d5c51353924a966e503953e010234108a";
         string channelId = "123456";
+        bool isProduction = false;
 
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
@@ -84,13 +86,13 @@ public class VATesting
 
         // Get access token
         var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
+        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
         RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
         
         // Retrieve required data from previous VA creation response (mock this in real tests)

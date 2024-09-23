@@ -15,6 +15,7 @@ public class InquiryVATests
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
         string clientSecret = config.ClientSecret;
         string channelId = "123456";
+        bool isProduction = false;
         
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
@@ -23,20 +24,20 @@ public class InquiryVATests
 
         // Get access token
         var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
+        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
         RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
         
         // Add the value from regist
-        string VA_NO = "9912304000009292";
-        string trxID = "trxId57766895";
+        string VA_NO = "9912304000009312";
+        string trxID = "trxId64825778";
         string Amount = "230000.00";
-        string txidVa = "TNICEVA02302202409181727519906";
+        string txidVa = "TNICEVA02302202409230948272944";
 
 
         string inquiryRequestBody = requestBodyGenerator.GenerateInquiryRequest(

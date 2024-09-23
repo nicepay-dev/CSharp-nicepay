@@ -17,6 +17,7 @@ namespace SignatureGenerator
             string clientSecret = "1af9014925cab04606b2e77a7536cb0d5c51353924a966e503953e010234108a";
             string channelId = "123456";
             string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
+            bool isProduction = false;
             
             
             // Membuat signature
@@ -26,13 +27,13 @@ namespace SignatureGenerator
             
             // Mendapatkan Access Token
             var tokenRequester = new AccessTokenRequester();
-            string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp);
+            string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
             dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
             string accessToken = accessTokenObject.accessToken;
             Console.WriteLine("Get The Access Token: " + accessToken);
 
             ApiEndpoints apiEndpoints = new ApiEndpoints();
-            VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
+            VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
             RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
            
 

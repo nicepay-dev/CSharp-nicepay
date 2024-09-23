@@ -28,9 +28,9 @@ public class SignatureGeneratorUtils
     {
 
         string hashedRequestBody = Sha256EncodeHex(requestBody);
-        
+        string endpointSign = endpoint.Replace("nicepay", "");
 
-        string stringToSign = $"{httpMethod}:{endpoint}:{accessToken}:{hashedRequestBody}:{timeStamp}";
+        string stringToSign = $"{httpMethod}:{endpointSign}:{accessToken}:{hashedRequestBody}:{timeStamp}";
 
         Console.WriteLine("================================");
 
