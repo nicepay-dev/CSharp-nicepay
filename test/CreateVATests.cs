@@ -6,7 +6,7 @@ namespace SignatureGenerator{
 [TestFixture]
 public class CreateVATests
 {
-    [Test,Order(1)]
+    [Test]
     public async Task CreateVA_Test()
     {
 
@@ -19,6 +19,12 @@ public class CreateVATests
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
 
+          if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
+            {
+                Console.WriteLine("clientId or clientSecret cannot be empty.");
+                Assert.Fail("clientId or clientSecret cannot be empty.");
+                return;
+            }
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
         string stringToSign = signatureGenerator.GenerateStringToSign(clientId, timestamp);

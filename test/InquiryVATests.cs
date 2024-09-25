@@ -17,6 +17,14 @@ public class InquiryVATests
         string channelId = "123456";
         bool isProduction = false;
         
+        
+          if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
+            {
+                Console.WriteLine("clientId or clientSecret cannot be empty.");
+                Assert.Fail("clientId or clientSecret cannot be empty.");
+                return;
+            }
+
         // Generate signature
         var signatureGenerator = new SignatureGeneratorUtils();
         string stringToSign = signatureGenerator.GenerateStringToSign(clientId, timestamp);
