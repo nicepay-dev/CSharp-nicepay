@@ -38,22 +38,29 @@ public class DeleteVATest
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
-        RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
+        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
+        SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         
         // Add the value from regist
-        string VA_NO = "9912304000009286";
-        string trxID = "trxId47288471";
-        string Amount = "230000.00";
-        string txidVa = "TNICEVA02302202409181623366653";
+        string VA_NO = "9912304000062650";
+        string trxID = "trxId85831863";
+        string Amount = "230000.00"; // Mengganti nama dari Amount menjadi totalAmountValue
+        string currency = "IDR"; // Menentukan mata uang
+        string txidVa = "TNICEVA02302202411280825064819";
+        string cancelMessage = "Request to delete virtual account"; // Menentukan pesan pembatalan
+
 
 
         string deleteRequestBody = requestBodyGenerator.GenerateDeleteVARequest(
-            virtualAccountNo: VA_NO,
-            trxId: trxID,
-            tXidVA: txidVa,
-            totalAmount: Amount
+        virtualAccountNo: VA_NO,
+        trxId: trxID,
+        value: Amount, // Menambahkan parameter totalAmountValue
+        currency: currency, // Menambahkan parameter currency
+        tXidVA: txidVa,
+        customerNo : "",
+        cancelMessage: cancelMessage // Menambahkan parameter cancelMessage
         );
+
 
         // Proses Delete VA (DELETE request dengan signature)
          string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);

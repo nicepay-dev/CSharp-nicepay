@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SignatureGenerator
 {
-    public class VAService
+    public class APIService
     {
 
         private readonly ApiEndpoints _endpoints;
@@ -16,7 +16,7 @@ namespace SignatureGenerator
         private readonly string _channelId;
         private readonly bool _isProduction;
 
-        public VAService(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction)
+        public APIService(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction)
         {
          _endpoints = endpoints;
         _clientSecret = clientSecret;
@@ -24,7 +24,7 @@ namespace SignatureGenerator
         _channelId = channelId;
         _isProduction = isProduction;
         }
-        public async Task<string> SendPostRequestCreate(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
+        public async Task<string> SendPostRequest(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
         {
             string signature = SignatureGeneratorUtils.GetSignature("POST", accessToken, requestBody, endpoint, timestamp, _clientSecret);
             string fullUrl =  BuildFullUrl(endpoint);
@@ -42,45 +42,12 @@ namespace SignatureGenerator
             var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(fullUrl, content);
         
-        
-        // Console.WriteLine("request Body: " + requestBody);
-        // Console.WriteLine("signature : " + signature);
-        // Console.WriteLine("timestamp: " + timestamp);
-        // Console.WriteLine("_clientId : " + _clientId);
-        // Console.WriteLine("externalId : " + externalId);
-        // Console.WriteLine("channel : " + _channelId);
-        // Console.WriteLine("https://dev.nicepay.co.id" + endpoint);
         string responseBody = await response.Content.ReadAsStringAsync();
         dynamic createVAResponse = JObject.Parse(responseBody);
-        //Console.WriteLine(createVAResponse);
-             // Log the response to check if it's a valid JSON
-        //Console.WriteLine("Response Body: " + responseBody);
 
         return responseBody;
         }
 
-         public async Task<string> SendPostRequestInquiry(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
-        {
-            string signature = SignatureGeneratorUtils.GetSignature("POST", accessToken, requestBody, endpoint, timestamp, _clientSecret);
-            string fullUrl =  BuildFullUrl(endpoint);
-            using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("X-TIMESTAMP", timestamp);
-            client.DefaultRequestHeaders.Add("X-SIGNATURE", signature);
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + accessToken);
-            client.DefaultRequestHeaders.Add("X-PARTNER-ID", _clientId);
-            client.DefaultRequestHeaders.Add("X-EXTERNAL-ID", externalId);
-            client.DefaultRequestHeaders.Add("CHANNEL-ID", _channelId);
-
-        //string respbody = JsonConvert.SerializeObject(requestBody);
-            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(fullUrl, content);
-    
-        string responseBody = await response.Content.ReadAsStringAsync();
-        dynamic inquiryResponse = JObject.Parse(responseBody);
-
-
-        return responseBody;
-        }
 
         public async Task<string> SendDeleteRequest(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
         {
@@ -112,7 +79,7 @@ namespace SignatureGenerator
 
          private string BuildFullUrl(string endpoint)
     {
-        string baseUrl = _isProduction ? ApiEndpoints.GetProductionBaseUrl() : ApiEndpoints.GetSandboxBaseUrl();
+        string baseUrl = _isProduction ? NICEPayBuilder.GetProductionBaseUrl() : NICEPayBuilder.GetSandboxBaseUrl();
         string fullUrl = new Uri(new Uri(baseUrl), endpoint).ToString();
         return fullUrl;
 

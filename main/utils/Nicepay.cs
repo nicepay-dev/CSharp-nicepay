@@ -2,15 +2,25 @@ public static class NICEPayBuilder
 {
     private static bool isProduction = false; // Set to true for production
 
+
+  public static string GetSandboxBaseUrl()
+    {
+        return "https://dev.nicepay.co.id/";
+    }
+
+    public static string GetProductionBaseUrl()
+    {
+        return "https://www.nicepay.co.id/";
+    }
     public static string GetSnapApiURL()
     {
         if (isProduction)
         {
-            return ApiEndpoints.GetProductionBaseUrl();
+            return GetProductionBaseUrl();
         }
         else
         {
-            return ApiEndpoints.GetSandboxBaseUrl();
+            return GetSandboxBaseUrl();
         }
     }
 

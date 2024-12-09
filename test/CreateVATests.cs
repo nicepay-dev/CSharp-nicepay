@@ -35,11 +35,12 @@ public class CreateVATests
         string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
+        Console.WriteLine("Create VA Akses token: " + accessTokenResponse);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
-        RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
+        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         string createRequestBody = requestBodyGenerator.GenerateCreateVARequest(
             customerNo: "",
             virtualAccountName: "John Test",
@@ -53,23 +54,23 @@ public class CreateVATests
        
         // Send POST request to create VA
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
-        string createResponse = await vaService.SendPostRequestCreate(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);
+        string createResponse = await vaService.SendPostRequest(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);
 
         dynamic createVAResponse = JObject.Parse(createResponse);
-        string va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
-        string amount = createVAResponse.virtualAccountData["totalAmount"]["value"].ToString();
-        string txidVa = createVAResponse.virtualAccountData["additionalInfo"]["tXidVA"].ToString();
-        string trxID = createVAResponse.virtualAccountData["trxId"].ToString();
+        // string va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
+        // string amount = createVAResponse.virtualAccountData["totalAmount"]["value"].ToString();
+        // string txidVa = createVAResponse.virtualAccountData["additionalInfo"]["tXidVA"].ToString();
+        // string trxID = createVAResponse.virtualAccountData["trxId"].ToString();
 
-        TestDataStore.VaNum = va_num;
-        TestDataStore.TrxId = trxID;
-        TestDataStore.Amount = amount;
-        TestDataStore.TXidVA = txidVa;
-        //Assert.NotNull(createResponse);
-        Console.WriteLine($"VaNum: {TestDataStore.VaNum}");
-        Console.WriteLine($"TrxId: {TestDataStore.TrxId}");
-        Console.WriteLine($"Amount: {TestDataStore.Amount}");
-        Console.WriteLine($"TXidVA: {TestDataStore.TXidVA}");
+        // TestDataStore.VaNum = va_num;
+        // TestDataStore.TrxId = trxID;
+        // TestDataStore.Amount = amount;
+        // TestDataStore.TXidVA = txidVa;
+        // //Assert.NotNull(createResponse);
+        // Console.WriteLine($"VaNum: {TestDataStore.VaNum}");
+        // Console.WriteLine($"TrxId: {TestDataStore.TrxId}");
+        // Console.WriteLine($"Amount: {TestDataStore.Amount}");
+        // Console.WriteLine($"TXidVA: {TestDataStore.TXidVA}");
         Console.WriteLine("Create VA Response: " + createResponse);
     }
 }

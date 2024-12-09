@@ -2,11 +2,13 @@
 using System.Security.Cryptography;
 using System.Text;
 
-public class SignatureGeneratorUtils
+namespace SignatureGenerator;
+public class SignatureGeneratorUtils()
 {
 
      public string GenerateStringToSign(string clientId, string timestamp)
         {
+            
             return clientId + "|" + timestamp;
         }
 

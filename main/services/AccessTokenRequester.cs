@@ -11,7 +11,7 @@ namespace SignatureGenerator
         public async Task<string> GetAccessTokenAsync(string clientId, string signature, string timestamp, bool isProduction)
         {
             // URL API
-            string _baseUrl = isProduction ? ApiEndpoints.GetProductionBaseUrl() : ApiEndpoints.GetSandboxBaseUrl();
+            string _baseUrl = isProduction ? NICEPayBuilder.GetProductionBaseUrl() : NICEPayBuilder.GetSandboxBaseUrl();
             ApiEndpoints apiEndpoints = new ApiEndpoints();
             string url = _baseUrl + apiEndpoints.AccessToken;
 

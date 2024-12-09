@@ -73,32 +73,34 @@ dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
 string accessToken = accessTokenObject.accessToken;
 ```
 
-### 2.3 Request for Payment (i.e. Virtual Account)
+### 2.3 Request for Payment With Builder (i.e. Virtual Account)
 
 ```csharp
-//Your previously initialized config
-//ApiEndpoints apiEndpoints = new ApiEndpoints();
-//VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId);
-//RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
+var builder = new CreateVARequestBuilder(_clientId)
+            .SetCustomerNo(customerNo)
+            .SetVirtualAccountName(virtualAccountName)
+            .SetTrxId(trxId)
+            .SetTotalAmount(totalAmountValue, currency)
+            .SetAdditionalInfo(bankCd, goodsNm, dbProcessUrl);
 
-//Previously requested access-token
-//var accessToken = ...
-
-string createRequestBody = requestBodyGenerator.GenerateCreateVARequest(
-            customerNo: "",
-            virtualAccountName: "John Test",
-            trxId: "trxId" + timestamp,
-            totalAmountValue: "10000.00",
-            currency: "IDR",
-            bankCd: "CENA",
-            goodsNm: "Test",
-            dbProcessUrl: "https://nicepay.co.id/"
-        );
-        string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
-        string createResponse = await vaService.SendPostRequestCreate(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);
-dynamic createVAResponse = JObject.Parse(createResponse);
-String va_num = createVAResponse.virtualAccountData["virtualAccountNo"];
+            var requestBodyObj = builder.Build();
+            return JsonConvert.SerializeObject(requestBodyObj);
 ```
+
+### 2.4 Inisiate for Unit Testing (i.e. Virtual Account)
+
+```csharp
+var builder = new CreateVARequestBuilder(_clientId)
+            .SetCustomerNo(customerNo)
+            .SetVirtualAccountName(virtualAccountName)
+            .SetTrxId(trxId)
+            .SetTotalAmount(totalAmountValue, currency)
+            .SetAdditionalInfo(bankCd, goodsNm, dbProcessUrl);
+
+            var requestBodyObj = builder.Build();
+            return JsonConvert.SerializeObject(requestBodyObj);
+```
+
 For testing VA with NUnit
 
 Install package

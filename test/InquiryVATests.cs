@@ -38,28 +38,28 @@ public class InquiryVATests
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        VAService vaService = new VAService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
-        RequestBodyGenerator requestBodyGenerator = new RequestBodyGenerator(clientId);
+        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         
         // Add the value from regist
-        string VA_NO = "9912304000009312";
-        string trxID = "trxId64825778";
-        string Amount = "230000.00";
-        string txidVa = "TNICEVA02302202409230948272944";
+        string VA_NO = "9912304000062649";
+        string trxID = "ordNo20241128081155";
+        string Amount = "10000.00";
+        string txidVa = "NORMALTEST00202411280800363566";
 
 
         string inquiryRequestBody = requestBodyGenerator.GenerateInquiryRequest(
             customerNo: "",
             virtualAccountNo: VA_NO,
             inquiryRequestId: SignatureGeneratorUtils.GenerateRandomNumberString(6),
-            totalAmountValue: Amount,
+            value: Amount,
             currency: "IDR",
             trxId: trxID,
             tXidVA: txidVa
         );
          // Send POST request to create VA
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
-        string inquiryResponse = await vaService.SendPostRequestInquiry(apiEndpoints.InquiryVA, accessToken, timestamp, inquiryRequestBody, externalId);
+        string inquiryResponse = await vaService.SendPostRequest(apiEndpoints.InquiryVA, accessToken, timestamp, inquiryRequestBody, externalId);
 
         //Assert.IsNotNull(inquiryResponse);
         Console.WriteLine("Inquiry VA Response: " + inquiryResponse);
