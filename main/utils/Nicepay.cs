@@ -12,6 +12,7 @@ public static class NICEPayBuilder
     {
         return "https://www.nicepay.co.id/";
     }
+    
     public static string GetSnapApiURL()
     {
         if (isProduction)

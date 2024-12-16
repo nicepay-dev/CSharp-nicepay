@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using InquiryEwallet;
 
 namespace SignatureGenerator{
 

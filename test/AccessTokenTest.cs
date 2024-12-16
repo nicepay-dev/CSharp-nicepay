@@ -6,10 +6,10 @@ using CreateQris;
 namespace SignatureGenerator{
 
 [TestFixture]
-public class SnapQrisService
+public class AccessTokenTest
 {
     [Test]
-    public async Task GenerateQris_Test()
+    public async Task AccessToken_Test()
     {
 
         TestingConstant config = new TestingConstant();

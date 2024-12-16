@@ -9,7 +9,7 @@ namespace SignatureGenerator{
 public class SnapQrisService
 {
     [Test]
-    public async Task GenerateQris_Test()
+    public async Task generateQris_Test()
     {
 
         TestingConstant config = new TestingConstant();

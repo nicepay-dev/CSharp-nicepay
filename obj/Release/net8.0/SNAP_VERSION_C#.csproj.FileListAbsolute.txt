@@ -1,0 +1,6 @@
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.csproj.AssemblyReference.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.AssemblyInfoInputs.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.AssemblyInfo.cs
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.csproj.CoreCompileInputs.cache
+C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\obj\Release\net8.0\SNAP_VERSION_C#.sourcelink.json

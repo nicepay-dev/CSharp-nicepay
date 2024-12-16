@@ -1,11 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>SNAP_VERSION_C_</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- Metadata untuk NuGet -->
+    <PackageId>SNAP_VERSION_CSharp</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Iqbal</Authors>
+    <Company>Nicepay</Company>
+    <Description>Plugin snap for C Sharp</Description>
+    <PackageTags>plugin;integration;application</PackageTags>
+    <RepositoryUrl>https://github.com/nicepay-dev/CSharp-nicepay</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
