@@ -20,6 +20,7 @@ public class SnapQrisService
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -34,14 +35,14 @@ public class SnapQrisService
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Generate Qris Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService qrisService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService qrisService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapQrisServices snapQrisServices = new SnapQrisServices(clientId);
         
         string value = "500.00";
@@ -107,6 +108,7 @@ public class SnapQrisService
         cartData: "{\"count\":\"1\",\"item\":[{\"img_url\":\"http://www.jamgora.com/media/avatar/noimage.png\",\"goods_detail\":\"BB12345678\",\"goods_name\":\"Pasar Modern\",\"goods_amt\":\"10000\",\"goods_quantity\":\"1\"}]}"
         );
        
+       Console.WriteLine("Generate Qris Request: " + createRequestBody);
         // Send POST request to qris payment
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await qrisService.SendPostRequest(apiEndpoints.GenerateQris, accessToken, timestamp, createRequestBody, externalId);

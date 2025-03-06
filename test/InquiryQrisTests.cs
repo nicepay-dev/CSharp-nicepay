@@ -20,6 +20,7 @@ public class InquiryQrisTests
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -34,25 +35,26 @@ public class InquiryQrisTests
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Inquiry Qris Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService qrisService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService qrisService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapQrisServices snapQrisServices = new SnapQrisServices(clientId);
     
 
        string createRequestBody = snapQrisServices.GenerateInquiryQris(
-       originalReferenceNo: "TNICEQR08108202411300924473784",
-       originalPartnerReferenceNo: "ncpy40942494",
+       originalReferenceNo: "TNICEQR08108202502271702432504",
+       originalPartnerReferenceNo: "ncpy26557769",
        merchantId: "TNICEQR081",
        externalStoreId: "NicepayStoreID1",
        serviceCode: "47"
         );
        
+       Console.WriteLine("Inquiry Qris Request: " + createRequestBody);
         // Send POST request to ewallet payment
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await qrisService.SendPostRequest(apiEndpoints.StatusQris, accessToken, timestamp, createRequestBody, externalId);

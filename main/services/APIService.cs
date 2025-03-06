@@ -15,14 +15,16 @@ namespace SignatureGenerator
         private readonly string _clientId;
         private readonly string _channelId;
         private readonly bool _isProduction;
+        private readonly bool _isCloudServer;
 
-        public APIService(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction)
+        public APIService(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction, bool isCloudServer)
         {
          _endpoints = endpoints;
         _clientSecret = clientSecret;
         _clientId = clientId;
         _channelId = channelId;
         _isProduction = isProduction;
+        _isCloudServer = isCloudServer;
         }
         public async Task<string> SendPostRequest(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
         {
@@ -79,7 +81,10 @@ namespace SignatureGenerator
 
          private string BuildFullUrl(string endpoint)
     {
-        string baseUrl = _isProduction ? NICEPayBuilder.GetProductionBaseUrl() : NICEPayBuilder.GetSandboxBaseUrl();
+        string baseUrl = _isCloudServer 
+        ? (_isProduction ? NICEPayBuilder.GetProductionCloud() : NICEPayBuilder.GetSandboxCloud()) 
+        : (_isProduction ? NICEPayBuilder.GetProductionBaseUrl() : NICEPayBuilder.GetSandboxBaseUrl());
+
         string fullUrl = new Uri(new Uri(baseUrl), endpoint).ToString();
         return fullUrl;
 

@@ -23,14 +23,5 @@ public class ApiEndpoints
     public string RejectPayout { get; } = "nicepay/api/v1.0/transfer/reject";
     public string BalancePayout { get; } = "nicepay/api/v1.0/balance-inquiry";
 
-     public static string GetSandboxBaseUrl()
-    {
-        return "https://dev.nicepay.co.id/";
-    }
-
-    public static string GetProductionBaseUrl()
-    {
-        return "https://www.nicepay.co.id/";
-    }
 
 }

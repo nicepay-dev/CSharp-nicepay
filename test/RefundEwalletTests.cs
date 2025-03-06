@@ -19,6 +19,7 @@ public class RefundEwalletTests
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -33,14 +34,14 @@ public class RefundEwalletTests
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Inquiry Ewallet Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapEwalletServices snapEwalletServices = new SnapEwalletServices(clientId);
         
         string value = "500.00";

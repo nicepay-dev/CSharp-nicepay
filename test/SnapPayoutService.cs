@@ -12,7 +12,7 @@ public class SnapPayoutService
     public async Task createPayout_Test()
     {
 
-        TestingConstant config = new TestingConstant();
+        TestingConstantService config = new TestingConstantService();
         string clientId = config.ClientId;
         string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"); 
@@ -20,6 +20,7 @@ public class SnapPayoutService
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
         string reservedDt = DateTime.Now.ToString("yyyyMMdd");
         string reservedTm = DateTime.Now.AddMinutes(70).ToString("HHmmss");
 
@@ -36,14 +37,14 @@ public class SnapPayoutService
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Create Payout Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapPayoutServices snapPayoutServices = new SnapPayoutServices(clientId);
         
         string value = "1000.00";
@@ -69,7 +70,7 @@ public class SnapPayoutService
         );
 
         
-        Console.WriteLine("Create Payout Response: " + createRequestBody);
+        Console.WriteLine("Create Payout Request: " + createRequestBody);
         // Send POST request to ewallet payment
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await payoutService.SendPostRequest(apiEndpoints.CreatePayout, accessToken, timestamp, createRequestBody, externalId);

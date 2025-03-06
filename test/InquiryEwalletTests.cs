@@ -12,7 +12,7 @@ public class InquiryEwalletTests
     public async Task InquiryEwallet_Test()
     {
 
-        TestingConstant config = new TestingConstant();
+        TestingConstantService config = new TestingConstantService();
         string clientId = config.ClientId;
         string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
@@ -20,6 +20,7 @@ public class InquiryEwalletTests
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -34,14 +35,14 @@ public class InquiryEwalletTests
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Inquiry Ewallet Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapEwalletServices snapEwalletServices = new SnapEwalletServices(clientId);
         
         string value = "500.00";
@@ -51,14 +52,14 @@ public class InquiryEwalletTests
        merchantId: "NORMALTEST",
        subMerchantId: "23489182303312",
        originalPartnerReferenceNo: "RefnoTrxSHP3823768",
-       originalReferenceNo: "NORMALTEST05202411280837115452",
+       originalReferenceNo: "NORMALTEST05202502241700546825",
        serviceCode: "54",
        transactionDate: DateTime.Parse(timestamp),
        externalStoreId: "239840198240795109",
        amountValue: value,
        currency: "IDR"
         );
-       
+        Console.WriteLine("Inquiry Ewallet Request: " + createRequestBody);
         // Send POST request to ewallet payment
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await ewalletService.SendPostRequest(apiEndpoints.StatusEwallet, accessToken, timestamp, createRequestBody, externalId);

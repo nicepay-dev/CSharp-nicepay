@@ -20,6 +20,7 @@ public class PayoutCancelService
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -34,14 +35,14 @@ public class PayoutCancelService
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Cancel Payout Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapPayoutServices snapPayoutServices = new SnapPayoutServices(clientId);
         
 

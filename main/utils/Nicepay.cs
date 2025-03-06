@@ -1,7 +1,19 @@
+using System.Net;
+
 public static class NICEPayBuilder
 {
     private static bool isProduction = false; // Set to true for production
 
+    private static bool isCloudServer  =  false;
+
+
+public static string GetSandboxCloud(){
+    return "https://dev-services.nicepay.co.id/";
+}
+
+public static string GetProductionCloud(){
+    return "https://services.nicepay.co.id/";
+}
 
   public static string GetSandboxBaseUrl()
     {
@@ -13,21 +25,24 @@ public static class NICEPayBuilder
         return "https://www.nicepay.co.id/";
     }
     
-    public static string GetSnapApiURL()
+   public static string GetSnapApiURL()
     {
-        if (isProduction)
+        if (isCloudServer)
         {
-            return GetProductionBaseUrl();
+            return isProduction ? GetProductionCloud() : GetSandboxCloud();
         }
         else
         {
-            return GetSandboxBaseUrl();
+            return isProduction ? GetProductionBaseUrl() : GetSandboxBaseUrl();
         }
     }
 
+
     // Optionally, add a method to set the environment
-    public static void SetEnvironment(bool production)
+    public static void SetEnvironment(bool production, bool cloudServer)
     {
         isProduction = production;
+        isCloudServer = cloudServer;
     }
+
 }

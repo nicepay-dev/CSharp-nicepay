@@ -16,6 +16,7 @@ public class DeleteVATest
         string clientSecret = config.ClientSecret;
         string channelId = "123456";
         bool isProduction = false;
+        bool isCloudServer = true;
         
          
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
@@ -32,21 +33,21 @@ public class DeleteVATest
 
         // Get access token
         var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId, isProduction);
+        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId, isProduction,isCloudServer);
         SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         
         // Add the value from regist
-        string VA_NO = "9912304000062650";
-        string trxID = "trxId85831863";
+        string VA_NO = "9912304000008854";
+        string trxID = "trxId40949767";
         string Amount = "230000.00"; // Mengganti nama dari Amount menjadi totalAmountValue
         string currency = "IDR"; // Menentukan mata uang
-        string txidVa = "TNICEVA02302202411280825064819";
+        string txidVa = "NORMALTEST02202502241029567253";
         string cancelMessage = "Request to delete virtual account"; // Menentukan pesan pembatalan
 
 
@@ -61,7 +62,7 @@ public class DeleteVATest
         cancelMessage: cancelMessage // Menambahkan parameter cancelMessage
         );
 
-
+        Console.WriteLine("Delete VA Request: " + deleteRequestBody);
         // Proses Delete VA (DELETE request dengan signature)
          string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string deleteResponse = await vaService.SendDeleteRequest(apiEndpoints.DeleteVA, accessToken, timestamp, deleteRequestBody, externalId + "03");

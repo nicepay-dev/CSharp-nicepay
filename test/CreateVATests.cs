@@ -10,7 +10,7 @@ public class CreateVATests
     public async Task CreateVA_Test()
     {
 
-        TestingConstant config = new TestingConstant();
+        TestingConstantService config = new TestingConstantService();
         string clientId = config.ClientId;
         string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
@@ -18,6 +18,7 @@ public class CreateVATests
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer = true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -32,14 +33,14 @@ public class CreateVATests
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction,isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Create VA Akses token: " + accessTokenResponse);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         string createRequestBody = requestBodyGenerator.GenerateCreateVARequest(
             customerNo: "",
@@ -52,6 +53,7 @@ public class CreateVATests
             dbProcessUrl: "https://nicepay.co.id/"
         );
        
+       Console.WriteLine("Create VA Request: " + createRequestBody);
         // Send POST request to create VA
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await vaService.SendPostRequest(apiEndpoints.CreateVA, accessToken, timestamp, createRequestBody, externalId);

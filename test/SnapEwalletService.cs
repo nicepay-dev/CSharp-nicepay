@@ -12,7 +12,7 @@ public class SnapEwalletService
     public async Task PaymentEwallet_Test()
     {
 
-        TestingConstant config = new TestingConstant();
+        TestingConstantService config = new TestingConstantService();
         string clientId = config.ClientId;
         string privateKey = config.PrivateKey;
         string timestamp = DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
@@ -20,6 +20,7 @@ public class SnapEwalletService
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         bool isProduction = false;
+        bool isCloudServer =  true;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
             {
@@ -34,14 +35,14 @@ public class SnapEwalletService
 
         // Get access token
          var tokenRequester = new AccessTokenRequester();
-        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction);
+        string accessTokenResponse = await tokenRequester.GetAccessTokenAsync(clientId, signature, timestamp, isProduction, isCloudServer);
         dynamic accessTokenObject = JObject.Parse(accessTokenResponse);
         string accessToken = accessTokenObject.accessToken;
         Console.WriteLine("Payment Ewallet Akses token: " + accessToken);
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction);
+        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         SnapEwalletServices snapEwalletServices = new SnapEwalletServices(clientId);
         
         string value = "500.00";
@@ -84,7 +85,7 @@ public class SnapEwalletService
 
         string cartDataJson = JsonConvert.SerializeObject(cartData);
 
-        Console.WriteLine("Payment Ewallet Response: " + cartDataJson);
+        
         string createRequestBody = snapEwalletServices.GenerateEwalletRequest(
         partnerReferenceNo: "RefnoTrxSHP3823768",
     merchantId: clientId,
@@ -105,6 +106,7 @@ public class SnapEwalletService
     mbFeeType: "2"
         );
        
+       Console.WriteLine("Payment Ewallet Request: " + createRequestBody);
         // Send POST request to ewallet payment
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
         string createResponse = await ewalletService.SendPostRequest(apiEndpoints.PaymentEwallet, accessToken, timestamp, createRequestBody, externalId);
