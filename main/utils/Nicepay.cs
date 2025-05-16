@@ -1,5 +1,3 @@
-using System.Net;
-
 public static class NICEPayBuilder
 {
     private static bool isProduction = false; // Set to true for production

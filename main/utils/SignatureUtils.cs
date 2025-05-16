@@ -1,6 +1,8 @@
-﻿using System;
+﻿
 using System.Security.Cryptography;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SignatureGenerator;
 public class SignatureGeneratorUtils()
@@ -13,9 +15,10 @@ public class SignatureGeneratorUtils()
         }
 
     //Generate signature Akses Token
-    public static string GenerateSignature(string privateKeyBase64, string stringToSign)
+    public static string GenerateSignature(string privateKeyBase64, string clientId, string timestamp)
         {
            
+           string stringToSign =  clientId + "|" + timestamp;
             byte[] privateKeyBytes = Convert.FromBase64String(privateKeyBase64);
 
            using RSA rsa = RSA.Create();
@@ -26,14 +29,16 @@ public class SignatureGeneratorUtils()
 
             return Convert.ToBase64String(signatureBytes);
         }
-   public static string GetSignature(string httpMethod, string accessToken, string requestBody, string endpoint, string timeStamp, string clientSecret)
+   public static string GetSignature(string httpMethod, string accessToken, Dictionary<string, object> requestBody, string endpoint, string timeStamp, string clientSecret)
     {
-
-        string hashedRequestBody = Sha256EncodeHex(requestBody);
+        string jsonBody = JsonConvert.SerializeObject(requestBody);      
+        string hashedRequestBody = Sha256EncodeHex(jsonBody);
+        Console.WriteLine("hasil hash " + hashedRequestBody);
         string endpointSign = endpoint.Replace("nicepay", "");
 
         string stringToSign = $"{httpMethod}:{endpointSign}:{accessToken}:{hashedRequestBody}:{timeStamp}";
-
+        
+        Console.WriteLine("String To sign : " + stringToSign);
         Console.WriteLine("================================");
 
         string sign = HmacSha512EncodeBase64(clientSecret, stringToSign);
@@ -106,8 +111,43 @@ public class SignatureGeneratorUtils()
         return randomNumberString;
     }
 
+    public static class SHA256Util
+{
+    public static string Encrypt(string value)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(value));
+            StringBuilder result = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                result.Append(b.ToString("x2"));
+            }
+            return result.ToString();
+        }
+    }
+}
 
 
+public static string GeneratePaymentUrl(string jsonResponse)
+    {
+        try
+        {
+            JObject json = JObject.Parse(jsonResponse);
+            // Mengambil tXid dan paymentURL dari response
+            string tXid = json["tXid"]?.ToString();
+            string paymentUrl = json["paymentURL"]?.ToString();
 
+            // Membuat URL lengkap untuk pembayaran
+            return $"{paymentUrl}?tXid={tXid}";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error parsing JSON: " + ex.Message);
+            return null;
+        }
+    }
+
+    
 
 }

@@ -1,9 +1,7 @@
-using System.Net.Http;
+
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
 
 namespace SignatureGenerator
 {
@@ -26,7 +24,7 @@ namespace SignatureGenerator
         _isProduction = isProduction;
         _isCloudServer = isCloudServer;
         }
-        public async Task<string> SendPostRequest(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
+        public async Task<string> SendPostRequest(string endpoint, string accessToken, string timestamp, Dictionary<string, object> requestBody, string externalId)
         {
             string signature = SignatureGeneratorUtils.GetSignature("POST", accessToken, requestBody, endpoint, timestamp, _clientSecret);
             string fullUrl =  BuildFullUrl(endpoint);
@@ -41,8 +39,9 @@ namespace SignatureGenerator
             client.DefaultRequestHeaders.Add("CHANNEL-ID", _channelId);
 
         //string respbody = JsonConvert.SerializeObject(requestBody);
-            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(fullUrl, content);
+        string jsonBody = JsonConvert.SerializeObject(requestBody);
+        var content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+        HttpResponseMessage response = await client.PostAsync(fullUrl, content);
         
         string responseBody = await response.Content.ReadAsStringAsync();
         dynamic createVAResponse = JObject.Parse(responseBody);
@@ -51,7 +50,7 @@ namespace SignatureGenerator
         }
 
 
-        public async Task<string> SendDeleteRequest(string endpoint, string accessToken, string timestamp, string requestBody, string externalId)
+        public async Task<string> SendDeleteRequest(string endpoint, string accessToken, string timestamp, Dictionary<string, object> requestBody, string externalId)
         {
             string signature = SignatureGeneratorUtils.GetSignature("DELETE", accessToken, requestBody, endpoint, timestamp, _clientSecret);
            string fullUrl =  BuildFullUrl(endpoint);
@@ -63,14 +62,16 @@ namespace SignatureGenerator
             client.DefaultRequestHeaders.Add("X-EXTERNAL-ID", externalId);
             client.DefaultRequestHeaders.Add("CHANNEL-ID", _channelId);
 
+            string jsonBody = JsonConvert.SerializeObject(requestBody);
             // var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
             // HttpResponseMessage response = await client.DeleteAsync("https://dev.nicepay.co.id" + endpoint,content);
 
             var request = new HttpRequestMessage
+            
             {
                 Method = HttpMethod.Delete,
                 RequestUri = new Uri(fullUrl),
-                Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+                Content = new StringContent(jsonBody, Encoding.UTF8, "application/json")
             };
 
             HttpResponseMessage response = await client.SendAsync(request);

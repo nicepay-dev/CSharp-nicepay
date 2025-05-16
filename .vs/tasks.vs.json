@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-SNAP_VERSION_C#",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "task-SNAP_VERSION_C#",
+      "appliesTo": "SNAP_VERSION_C#.csproj",
+      "type": "msbuild"
+    }
+  ]
+}
