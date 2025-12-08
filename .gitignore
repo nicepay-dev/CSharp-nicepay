@@ -1,0 +1,31 @@
+## -- Visual Studio --
+.vs/
+*.sqlite
+*.vsidx
+*.wsuo
+*.suo
+DocumentLayout.backup.json
+DocumentLayout.json
+VSWorkspaceState.json
+
+## -- Build Folders (bin & obj) --
+[Bb]in/
+[Oo]bj/
+
+## -- NuGet & dependencies --
+*.nupkg
+*.nuspec
+*.assets.cache
+*.AssemblyReference.cache
+*.CoreCompileInputs.cache
+*.AssemblyInfoInputs.cache
+project.assets.json
+project.nuget.cache
+*.dgspec.json
+*.nuget.g.props
+*.nuget.g.targets
+
+## -- Temporary Files --
+*.tmp
+*.sourcelink.json
+FileListAbsolute.txt

@@ -37,7 +37,7 @@
 
 //         // Inquiry VA request
 //         ApiEndpoints apiEndpoints = new ApiEndpoints();
-//         APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+//         SnapServices vaService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
 //         SnapVaServices requestBodyGenerator = new SnapVaServices(clientId);
         
 //         // Add the value from regist

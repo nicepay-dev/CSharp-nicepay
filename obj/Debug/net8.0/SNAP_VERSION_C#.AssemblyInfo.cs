@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Plugin snap and non snap V2 for C Sharp")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.3.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.3+ab87b46476f9e3c43606aa8ebbb4e41c15fbec05")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.3+781ffef2560f30fc7fc030527c873a7ace10736f")]
 [assembly: System.Reflection.AssemblyProductAttribute("SNAP_VERSION_C#")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SNAP_VERSION_C#")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.3.0")]

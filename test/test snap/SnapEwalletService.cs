@@ -40,7 +40,7 @@ TestingConstantService config = new TestingConstantService();
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+        SnapServices ewalletService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
 
          var cartData = new
 {

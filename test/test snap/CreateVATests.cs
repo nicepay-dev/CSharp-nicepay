@@ -18,7 +18,7 @@ public class CreateVATests
         string channelId = "123456";
         string random = SignatureGeneratorUtils.GenerateRandomNumberString(8);
         string externalId = SignatureGeneratorUtils.GenerateRandomNumberString(6);
-        bool isProduction = false;
+        bool isProduction = true;
         bool isCloudServer = false;
 
           if (string.IsNullOrEmpty(clientId) || string.IsNullOrEmpty(clientSecret))
@@ -39,7 +39,7 @@ public class CreateVATests
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+        SnapServices vaService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
        
         
         var bodyBuilder = new VirtualAccountBuilder()

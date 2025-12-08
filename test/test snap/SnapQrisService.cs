@@ -38,7 +38,7 @@ public class SnapQrisService
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService qrisService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+        SnapServices qrisService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         // SnapQrisServices snapQrisServices = new SnapQrisServices(clientId);
         
         string value = "500.00";

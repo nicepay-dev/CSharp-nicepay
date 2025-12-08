@@ -37,8 +37,15 @@ public class ApiEndpoints
 
 
     //REDIRECT
+    public string RegistRedirectV2 { get; } = "/nicepay/redirect/v2/registration";
 
-     public string RegistRedirectV2 {get; } = "/nicepay/redirect/v2/registration";
+
+    public string RegistRedirect { get; } = "/nicepay/api/orderRegist.do";
+    public string RegistDirectV1 { get; } = "/nicepay/api/onePass.do";
+    public string RegistEwalletV1 { get; } = "/nicepay/api/ewalletTrans.do";
+    public string CheckStatusV1 { get; } = "/nicepay/api/onePassStatus.do";
+    public string RegistCardTokenV1 { get; } = "/nicepay/api/onePassToken.do";
+    public string cancelV1 { get; } = "/nicepay/api/onePassAllCancel.do";
 
     
 }

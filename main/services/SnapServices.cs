@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SignatureGenerator
 {
-    public class APIService
+    public class SnapServices
     {
 
         private readonly ApiEndpoints _endpoints;
@@ -15,7 +15,7 @@ namespace SignatureGenerator
         private readonly bool _isProduction;
         private readonly bool _isCloudServer;
 
-        public APIService(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction, bool isCloudServer)
+        public SnapServices(ApiEndpoints endpoints, string clientSecret, string clientId, string channelId, bool isProduction, bool isCloudServer)
         {
          _endpoints = endpoints;
         _clientSecret = clientSecret;

@@ -51,7 +51,7 @@ class V2TestingRegistRedirect
 
 
           string cartDataJson = JsonConvert.SerializeObject(cartData);
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
 
          // BASE REQUEST MANDATORY
         .SetCommonFields(
@@ -118,7 +118,7 @@ class V2TestingRegistRedirect
         Dictionary<string, object> payload = Bodybuilder.Build();
          string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist Redirect: " + jsonPayload);
-         var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+         var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistRedirectV2,payload);
 
          Console.WriteLine("Create Regist Redirect: " + result);

@@ -39,7 +39,7 @@
 
 //         // Create VA request
 //         ApiEndpoints apiEndpoints = new ApiEndpoints();
-//         APIService ewalletService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+//         SnapServices ewalletService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
 //         SnapEwalletServices snapEwalletServices = new SnapEwalletServices(clientId);
         
 //         string value = "500.00";

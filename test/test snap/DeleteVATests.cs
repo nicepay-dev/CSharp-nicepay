@@ -37,7 +37,7 @@ public class DeleteVATest
 
         // Inquiry VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService vaService = new APIService(apiEndpoints, clientSecret, clientId, channelId, isProduction,isCloudServer);
+        SnapServices vaService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId, isProduction,isCloudServer);
         
         // Add the value from regist
         string VA_NO = "9912304000008854";

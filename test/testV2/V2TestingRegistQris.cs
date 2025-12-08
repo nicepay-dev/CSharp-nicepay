@@ -25,7 +25,7 @@ class RegistQris
       
         Console.WriteLine("Create Merchant Token: " + merchantToken);
 
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
         .SetCommonFields(
             iMid: clientId,
             timeStamp: timestamp,
@@ -56,7 +56,7 @@ class RegistQris
         Dictionary<string, object> payload = Bodybuilder.Build();
         string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist QRIS: " + jsonPayload);
-        var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+        var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistV2,payload);
 
         Console.WriteLine("Create Regist QRIS: " + result);

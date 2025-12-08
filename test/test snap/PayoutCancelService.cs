@@ -37,7 +37,7 @@ public class PayoutCancelService
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+        SnapServices payoutService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         
 
         // Jumlah item dan distribusi nilai `goodsAmt` ke setiap item

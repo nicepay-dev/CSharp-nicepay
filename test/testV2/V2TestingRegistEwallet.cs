@@ -51,7 +51,7 @@ class RegistEwallet
 
           string cartDataJson = JsonConvert.SerializeObject(cartData);
           Console.WriteLine(cartData);
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
         .SetCommonFields(
             iMid: clientId,
             timeStamp: timestamp,
@@ -90,7 +90,7 @@ class RegistEwallet
         Dictionary<string, object> payload = Bodybuilder.Build();
          string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist Ewallet: " + jsonPayload);
-         var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+         var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistV2,payload);
 
          Console.WriteLine("Create Regist Ewallet: " + result);
