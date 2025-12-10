@@ -1,9 +1,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SignatureGenerator;
+using NUnit.Framework;
 
-class V2TestingRegistRedirect
+[TestFixture]
+public class V2TestingRegistRedirect
 {
+     [Test]
     public async Task RegistRedirect_Test()
     {
       TestingConstantService config = new TestingConstantService();
@@ -29,7 +32,7 @@ class V2TestingRegistRedirect
 
         var cartData = new
 {
-    count = "2",
+    count = "1",
     item = new[]
     {
         new {
@@ -37,13 +40,6 @@ class V2TestingRegistRedirect
             goods_name = "Nokia 3360",
             goods_detail = "Old Nokia 3360",
             goods_amt = amount,
-            goods_quantity = "1"
-        },
-        new {
-            img_url = "https://d3nevzfk7ii3be.cloudfront.net/igi/vOrGHXlovukA566A.medium",
-            goods_name = "Nokia 3360",
-            goods_detail = "Old Nokia 3360",
-            goods_amt = "0",
             goods_quantity = "1"
         }
     }

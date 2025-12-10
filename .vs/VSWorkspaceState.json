@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\main",
+    "\\main\\Builder",
     "\\main\\services",
     "\\main\\utils",
     "\\test",
