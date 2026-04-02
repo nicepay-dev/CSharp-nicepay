@@ -23,7 +23,7 @@ class V2TestingRejectPayout
       
       Console.WriteLine("Create Merchant Token: " + merchantToken);
 
-      var Bodybuilder = new NicepayRequestBuilder()
+      var Bodybuilder = new V2Builder()
         .SetPayoutStep(timeStamp :timestamp,
         iMid : clientId,
         tXid : "",
@@ -34,7 +34,7 @@ class V2TestingRejectPayout
         Dictionary<string, object> payload = Bodybuilder.Build();
         string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Reject Payout: " + jsonPayload);
-        var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+        var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RejectPayoutV2,payload);
 
         Console.WriteLine("Reject Payout: " + result);

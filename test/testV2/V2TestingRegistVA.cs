@@ -60,7 +60,7 @@ public class RegistVA
         Dictionary<string, object> payload = Bodybuilder.Build();
          string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist VA: " + jsonPayload);
-         var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+         var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistV2,payload);
 
          Console.WriteLine("Create Regist VA: " + result);

@@ -53,21 +53,44 @@ public class MerchantTokenBuilder
         return this;
     }
 
-    // Method untuk menghasilkan merchantToken
-    public string BuildMerchantToken()
-    {
-        var stringBuilder = new StringBuilder();
-        stringBuilder.Append(timeStamp);
-        stringBuilder.Append(iMid);
-        stringBuilder.Append(refNo); 
-        stringBuilder.Append(amount);
-        stringBuilder.Append(merchantKey);
+        // Method untuk menghasilkan merchantToken
+        public string BuildMerchantToken()
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(timeStamp);
+            stringBuilder.Append(iMid);
+            stringBuilder.Append(refNo);
+            stringBuilder.Append(amount);
+            stringBuilder.Append(merchantKey);
 
-        // Menghasilkan merchantToken dengan enkripsi SHA256
+            // Menghasilkan merchantToken dengan enkripsi SHA256
 
-        return SignatureGeneratorUtils.SHA256Util.Encrypt(stringBuilder.ToString());
+            return SignatureGeneratorUtils.SHA256Util.Encrypt(stringBuilder.ToString());
 
-    }
+        }
+    
+    public string BuildMerchantTokenV1()
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(iMid);
+            stringBuilder.Append(refNo);
+            stringBuilder.Append(amount);
+            stringBuilder.Append(merchantKey);
+
+            return SignatureGeneratorUtils.SHA256Util.Encrypt(stringBuilder.ToString());
+        }
+
+     public string BuildMerchantTokenCancelV1()
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append(iMid);
+            stringBuilder.Append(txid);
+            stringBuilder.Append(amount);
+            stringBuilder.Append(merchantKey);
+
+            return SignatureGeneratorUtils.SHA256Util.Encrypt(stringBuilder.ToString());
+        }
+
 
 
     public string BuildPayoutMerchantToken()

@@ -27,7 +27,7 @@ class SetCheckStatus
         Console.WriteLine("Create Merchant Token: " + merchantToken);
 
       
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
         
         .SetCheckStatus(
           iMid : clientId,
@@ -43,7 +43,7 @@ class SetCheckStatus
         Dictionary<string, object> payload = Bodybuilder.Build();
         string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Check Status: " + jsonPayload);
-        var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+        var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.InquiryV2,payload);
 
          Console.WriteLine("Check Status Response: " + result);

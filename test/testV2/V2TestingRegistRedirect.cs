@@ -1,9 +1,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SignatureGenerator;
+using NUnit.Framework;
 
-class V2TestingRegistRedirect
+[TestFixture]
+public class V2TestingRegistRedirect
 {
+     [Test]
     public async Task RegistRedirect_Test()
     {
       TestingConstantService config = new TestingConstantService();
@@ -29,7 +32,7 @@ class V2TestingRegistRedirect
 
         var cartData = new
 {
-    count = "2",
+    count = "1",
     item = new[]
     {
         new {
@@ -38,20 +41,13 @@ class V2TestingRegistRedirect
             goods_detail = "Old Nokia 3360",
             goods_amt = amount,
             goods_quantity = "1"
-        },
-        new {
-            img_url = "https://d3nevzfk7ii3be.cloudfront.net/igi/vOrGHXlovukA566A.medium",
-            goods_name = "Nokia 3360",
-            goods_detail = "Old Nokia 3360",
-            goods_amt = "0",
-            goods_quantity = "1"
         }
     }
 };
 
 
           string cartDataJson = JsonConvert.SerializeObject(cartData);
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
 
          // BASE REQUEST MANDATORY
         .SetCommonFields(
@@ -118,7 +114,7 @@ class V2TestingRegistRedirect
         Dictionary<string, object> payload = Bodybuilder.Build();
          string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist Redirect: " + jsonPayload);
-         var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+         var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistRedirectV2,payload);
 
          Console.WriteLine("Create Regist Redirect: " + result);

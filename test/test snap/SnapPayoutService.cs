@@ -41,7 +41,7 @@ public class SnapPayoutService
 
         // Create VA request
         ApiEndpoints apiEndpoints = new ApiEndpoints();
-        APIService payoutService = new APIService(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
+        SnapServices payoutService = new SnapServices(apiEndpoints, clientSecret, clientId, channelId,isProduction, isCloudServer);
         
         string value = "10000.00";
         decimal totalValue = decimal.Parse(value);

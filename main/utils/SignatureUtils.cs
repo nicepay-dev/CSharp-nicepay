@@ -148,6 +148,26 @@ public static string GeneratePaymentUrl(string jsonResponse)
         }
     }
 
+
+    public static string ToFormUrlEncoded(object payload)
+    {
+        // Serialize ke dictionary
+        var dict = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(
+            Newtonsoft.Json.JsonConvert.SerializeObject(payload)
+        );
+
+        // Encode sebagai key=value&key2=value2
+        var list = new List<string>();
+        foreach (var item in dict)
+        {
+            string encodedKey = Uri.EscapeDataString(item.Key);
+            string encodedValue = Uri.EscapeDataString(item.Value?.ToString() ?? "");
+            list.Add($"{encodedKey}={encodedValue}");
+        }
+
+        return string.Join("&", list);
+    }
+
     
 
 }

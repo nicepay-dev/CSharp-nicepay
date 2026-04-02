@@ -30,7 +30,7 @@ class V2TestingCancel
         Console.WriteLine("Create Cancel Merchant Token : " + merchantToken);
 
       
-        var Bodybuilder = new NicepayRequestBuilder()
+        var Bodybuilder = new V2Builder()
         .SetCancel(
         iMid : clientId,
         timeStamp : timestamp,
@@ -49,7 +49,7 @@ class V2TestingCancel
         Dictionary<string, object> payload = Bodybuilder.Build();
         string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Cancel: " + jsonPayload);
-        var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+        var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.CancelV2,payload);
 
          Console.WriteLine("Create Cancel: " + result);

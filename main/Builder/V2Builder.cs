@@ -1,9 +1,9 @@
-public class NicepayRequestBuilder
+public class V2Builder
 {
     private Dictionary<string, object> _requestBody = new Dictionary<string, object>();
 
     // Set Common Fields
-    public NicepayRequestBuilder SetCommonFields(string iMid, string timeStamp, string payMethod, string currency, string amt, string referenceNo, string goodsNm, string merchantToken)
+    public V2Builder SetCommonFields(string iMid, string timeStamp, string payMethod, string currency, string amt, string referenceNo, string goodsNm, string merchantToken)
     {
         _requestBody["timeStamp"] = timeStamp;
         _requestBody["iMid"] = iMid;
@@ -18,7 +18,7 @@ public class NicepayRequestBuilder
     }
 
     //FOR VA
-    public NicepayRequestBuilder setBankCd(string bankCd){
+    public V2Builder setBankCd(string bankCd){
         _requestBody["bankCd"] = bankCd;
 
         return this;
@@ -26,7 +26,7 @@ public class NicepayRequestBuilder
 
 
     //FOR CARD
-    public NicepayRequestBuilder setCreditCard(string instmntType, string instmntMon, string recurrOpt){
+    public V2Builder setCreditCard(string instmntType, string instmntMon, string recurrOpt){
         _requestBody["instmntType"] = instmntType;
         _requestBody["instmntMon"] = instmntMon;
         _requestBody["recurrOpt"] = recurrOpt;
@@ -35,20 +35,20 @@ public class NicepayRequestBuilder
     }
 
     //FOR QRIS
-    public NicepayRequestBuilder setMitraCd(string mitraCd){
+    public V2Builder setMitraCd(string mitraCd){
         _requestBody["mitraCd"] = mitraCd;
 
         return this;
     }
 
-     public NicepayRequestBuilder setShopId(string shopId){
+     public V2Builder setShopId(string shopId){
         _requestBody["shopId"] = shopId;
 
         return this;
     }
 
     // FOR Payout
-     public NicepayRequestBuilder setPayout(string accountNo,string benefNm,string benefStatus,
+     public V2Builder setPayout(string accountNo,string benefNm,string benefStatus,
      string benefType, string reservedDt, string reservedTm, string benefPhone, string payoutMethod,
      string timeStamp,string iMid, string amt, string referenceNo, string merchantToken){
         _requestBody["accountNo"] = accountNo;
@@ -69,14 +69,14 @@ public class NicepayRequestBuilder
         return this;
     }
    
-    public NicepayRequestBuilder setPaymentExp(string paymentExpDt, string paymentExpTm){
+    public V2Builder setPaymentExp(string paymentExpDt, string paymentExpTm){
         _requestBody["paymentExpDt"] = paymentExpDt;
         _requestBody["paymentExpTm"] = paymentExpTm;
 
         return this;
     }
     // Set Billing Info
-    public NicepayRequestBuilder SetBillingInfo(string billingNm, string billingPhone, string billingEmail, string billingAddr, string billingCity, string billingState, string billingPostCd, string billingCountry)
+    public V2Builder SetBillingInfo(string billingNm, string billingPhone, string billingEmail, string billingAddr, string billingCity, string billingState, string billingPostCd, string billingCountry)
     {
         _requestBody["billingNm"] = billingNm;
         _requestBody["billingPhone"] = billingPhone;
@@ -91,7 +91,7 @@ public class NicepayRequestBuilder
     }
 
     //CHECK STATUS
-    public NicepayRequestBuilder SetCheckStatus(string iMid, string timeStamp, string tXid,string amt, string referenceNo, string merchantToken)
+    public V2Builder SetCheckStatus(string iMid, string timeStamp, string tXid,string amt, string referenceNo, string merchantToken)
     {
         _requestBody["timeStamp"] = timeStamp;
         _requestBody["iMid"] = iMid;
@@ -105,7 +105,7 @@ public class NicepayRequestBuilder
 
 
     //CANCEL 
-    public NicepayRequestBuilder SetCancel(string iMid, string timeStamp, string tXid,string amt,
+    public V2Builder SetCancel(string iMid, string timeStamp, string tXid,string amt,
      string merchantToken, string payMethod,string cancelType, string cancelMsg, string cancelUserId
      ,string cancelServerIp, string cancelRetryCnt)
     {
@@ -125,7 +125,7 @@ public class NicepayRequestBuilder
     }
 
    //CHECK STATUS PAYOUT
-    public NicepayRequestBuilder SetPayoutCheckStatus(string iMid, string timeStamp, string tXid,string accountNo, string merchantToken)
+    public V2Builder SetPayoutCheckStatus(string iMid, string timeStamp, string tXid,string accountNo, string merchantToken)
     {
         _requestBody["timeStamp"] = timeStamp;
         _requestBody["iMid"] = iMid;
@@ -137,7 +137,7 @@ public class NicepayRequestBuilder
     }
 
     //CHECK STATUS PAYOUT
-    public NicepayRequestBuilder SetPayoutStep(string iMid, string timeStamp, string tXid, string merchantToken)
+    public V2Builder SetPayoutStep(string iMid, string timeStamp, string tXid, string merchantToken)
     {
         _requestBody["timeStamp"] = timeStamp;
         _requestBody["iMid"] = iMid;
@@ -147,7 +147,7 @@ public class NicepayRequestBuilder
         return this;
     }
 
-     public NicepayRequestBuilder SetPayoutBalance(string iMid, string timeStamp, string merchantToken)
+     public V2Builder SetPayoutBalance(string iMid, string timeStamp, string merchantToken)
     {
         _requestBody["timeStamp"] = timeStamp;
         _requestBody["iMid"] = iMid;
@@ -156,8 +156,9 @@ public class NicepayRequestBuilder
         return this;
     }
 
+
     // Set Delivery Info
-    public NicepayRequestBuilder SetDeliveryInfo(string deliveryNm, string deliveryPhone, string deliveryAddr, string deliveryCity, string deliveryState, string deliveryPostCd, string deliveryCountry)
+    public V2Builder SetDeliveryInfo(string deliveryNm, string deliveryPhone, string deliveryAddr, string deliveryCity, string deliveryState, string deliveryPostCd, string deliveryCountry)
     {
         _requestBody["deliveryNm"] = deliveryNm;
         _requestBody["deliveryPhone"] = deliveryPhone;
@@ -171,28 +172,28 @@ public class NicepayRequestBuilder
     }
 
     // Set DB Process URL
-    public NicepayRequestBuilder SetDbProcessUrl(string dbProcessUrl)
+    public V2Builder SetDbProcessUrl(string dbProcessUrl)
     {
         _requestBody["dbProcessUrl"] = dbProcessUrl;
         return this;
     }
 
     // Set Cart Data
-    public NicepayRequestBuilder SetCartData(string cartData)
+    public V2Builder SetCartData(string cartData)
     {
         _requestBody["cartData"] = cartData;
         return this;
     }
 
             // Set Callback URL
-public NicepayRequestBuilder SetCallBackUrl(string callBackUrl)
+public V2Builder SetCallBackUrl(string callBackUrl)
 {
     _requestBody["callBackUrl"] = callBackUrl;
     return this;
 }
 
 // Set VAT, Fee, NoTaxAmt
-public NicepayRequestBuilder SetTaxInfo(string vat, string fee, string notaxAmt)
+public V2Builder SetTaxInfo(string vat, string fee, string notaxAmt)
 {
     _requestBody["vat"] = vat;
     _requestBody["fee"] = fee;
@@ -201,14 +202,14 @@ public NicepayRequestBuilder SetTaxInfo(string vat, string fee, string notaxAmt)
 }
 
 // Set Description
-public NicepayRequestBuilder SetDescription(string description)
+public V2Builder SetDescription(string description)
 {
     _requestBody["description"] = description;
     return this;
 }
 
 // Set Request Info
-public NicepayRequestBuilder SetRequestInfo(string reqDt, string reqTm, string reqDomain, string reqServerIP, string reqClientVer)
+public V2Builder SetRequestInfo(string reqDt, string reqTm, string reqDomain, string reqServerIP, string reqClientVer)
 {
     _requestBody["reqDt"] = reqDt;
     _requestBody["reqTm"] = reqTm;
@@ -219,7 +220,7 @@ public NicepayRequestBuilder SetRequestInfo(string reqDt, string reqTm, string r
 }
 
 // Set User Info
-public NicepayRequestBuilder SetUserInfo(string userIP, string userSessionID, string userAgent, string userLanguage)
+public V2Builder SetUserInfo(string userIP, string userSessionID, string userAgent, string userLanguage)
 {
     _requestBody["userIP"] = userIP;
     _requestBody["userSessionID"] = userSessionID;
@@ -229,14 +230,14 @@ public NicepayRequestBuilder SetUserInfo(string userIP, string userSessionID, st
 }
 
 // Set Sellers
-public NicepayRequestBuilder SetSellers(string sellers)
+public V2Builder SetSellers(string sellers)
 {
     _requestBody["sellers"] = sellers;
     return this;
 }
 
 // Set VA Expiry Date and Time
-public NicepayRequestBuilder SetVaExpiry(string vacctValidDt, string vacctValidTm)
+public V2Builder SetVaExpiry(string vacctValidDt, string vacctValidTm)
 {
     _requestBody["vacctValidDt"] = vacctValidDt;
     _requestBody["vacctValidTm"] = vacctValidTm;
@@ -246,7 +247,7 @@ public NicepayRequestBuilder SetVaExpiry(string vacctValidDt, string vacctValidT
 // Set Pay Expiry (already exists as SetPaymentExp, skip)
 
 // Set Miscellaneous Fix Account ID
-public NicepayRequestBuilder SetMerFixAcctId(string merFixAcctId)
+public V2Builder SetMerFixAcctId(string merFixAcctId)
 {
     _requestBody["merFixAcctId"] = merFixAcctId;
     return this;

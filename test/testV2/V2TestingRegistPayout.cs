@@ -30,7 +30,7 @@ public class RegistPayout
         string merchantToken = builder.BuildPayoutMerchantToken();
       
         Console.WriteLine("Create Merchant Token: " + merchantToken);
-         var Bodybuilder = new NicepayRequestBuilder()
+         var Bodybuilder = new V2Builder()
         
         .setBankCd(bankCd :"BNIN")
         .setPayout(
@@ -53,7 +53,7 @@ public class RegistPayout
         Dictionary<string, object> payload = Bodybuilder.Build();
          string jsonPayload = Newtonsoft.Json.JsonConvert.SerializeObject(payload);
         Console.WriteLine("Request Regist Payout: " + jsonPayload);
-         var registrationService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+         var registrationService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result = await registrationService.SendPostAsync(apiEndpoints.RegistPayoutV2,payload);
 
          Console.WriteLine("Create Regist Payout: " + result);

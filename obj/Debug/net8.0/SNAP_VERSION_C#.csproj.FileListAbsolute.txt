@@ -1,8 +1,5 @@
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\testhost.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\testhost.exe
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.runner.visualstudio.testadapter.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.runner.reporters.netcoreapp10.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.runner.utility.netcoreapp10.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\NUnit3.TestAdapter.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\NUnit3.TestAdapter.pdb
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\nunit.engine.dll
@@ -27,10 +24,6 @@ C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\Newt
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\nunit.framework.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\nunit.framework.legacy.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\System.Diagnostics.EventLog.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.abstractions.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.assert.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.core.dll
-C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\xunit.execution.dotnet.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 C:\Users\Iqbal Nugroho\Documents\ProjectC#\SNAP_VERSION_C#\bin\Debug\net8.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll

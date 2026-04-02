@@ -25,7 +25,7 @@ class V2TestingCheckStatusPayout
 
         // Act: Menghasilkan merchantToken
         string merchantToken1 = builder1.BuildPayoutStatusMerchantToken();
-        var BodybuilderCheckStatus = new NicepayRequestBuilder()
+        var BodybuilderCheckStatus = new V2Builder()
         
         .SetPayoutCheckStatus(
           iMid : clientId,
@@ -38,7 +38,7 @@ class V2TestingCheckStatusPayout
         Dictionary<string, object> payload1 = BodybuilderCheckStatus.Build();
         string jsonPayload1 = Newtonsoft.Json.JsonConvert.SerializeObject(payload1);
         Console.WriteLine("Request Check Status Payout: " + jsonPayload1);
-        var checkStatusService = new NicepayRegistrationService(apiEndpoints,isProduction, isCloudServer);
+        var checkStatusService = new NonSnapServices(apiEndpoints,isProduction, isCloudServer);
         var result1 = await checkStatusService.SendPostAsync(apiEndpoints.InquiryPayoutV2,payload1);
         
         Console.WriteLine("Check Status Payout: " + result1);
